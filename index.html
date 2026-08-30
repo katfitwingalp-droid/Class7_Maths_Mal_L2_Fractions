@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
+<title>ഭിന്നസംഖ്യകൾ - Class 7 Maths</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:'Nunito',Arial,sans-serif;background:#eef2ff;color:#0f172a;-webkit-overflow-scrolling:touch}
+.app-container{max-width:800px;margin:0 auto;min-height:100vh;background:#fff;box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
+.screen{display:none;padding:16px 20px;animation:fadeIn .3s}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.topbar{background:#3949AB;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.topbar h1{font-size:1.05rem;font-weight:800;margin:0}
+.topbar .sub{font-size:.72rem;opacity:.9}
+.stats{display:flex;gap:8px;background:rgba(255,255,255,.2);padding:4px 10px;border-radius:12px;font-weight:800;font-size:.85rem}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:rgba(255,255,255,.2);color:#fff;font-size:1rem;cursor:pointer}
+.home-hero{text-align:center;padding:12px 0 8px}
+.home-hero h1{font-size:1.6rem;font-weight:800;color:#1A237E;margin-bottom:2px}
+.home-hero p{color:#5C6BC0;font-weight:700;font-size:.95rem}
+.category-card{background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;padding:14px;margin-bottom:16px}
+.category-title{font-size:1.05rem;font-weight:800;margin-bottom:12px;border-bottom:2px dashed #cbd5e1;padding-bottom:6px;color:#1e3a8a}
+.btn-main{padding:14px 16px;border-radius:12px;font-weight:800;display:flex;align-items:center;gap:12px;width:100%;color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.18);text-align:left;border:none;cursor:pointer;font-size:.98rem;margin-bottom:10px;line-height:1.3}
+.btn-main:last-child{margin-bottom:0}
+.btn-main:active{transform:translateY(3px);box-shadow:none}
+.btn-main span.emoji{font-size:1.4rem;flex-shrink:0}
+.b1{background:linear-gradient(135deg,#5C6BC0,#3949AB)}
+.b2{background:linear-gradient(135deg,#42A5F5,#1565C0)}
+.b3{background:linear-gradient(135deg,#66BB6A,#2E7D32)}
+.b4{background:linear-gradient(135deg,#AB47BC,#6A1B9A)}
+.b6{background:linear-gradient(135deg,#26A69A,#00897B)}
+.b7{background:linear-gradient(135deg,#EC407A,#C2185B)}
+.b8{background:linear-gradient(135deg,#8D6E63,#5D4037)}
+.b9{background:linear-gradient(135deg,#26C6DA,#00ACC1)}
+.b10{background:linear-gradient(135deg,#7E57C2,#4527A0)}
+.header{background:#3949AB;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-radius:14px;margin-bottom:16px}
+.header h1{font-size:1.05rem;font-weight:800;margin:0}
+.back-btn{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:1.15rem;padding:4px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+.content-card{background:#fff;border:2px solid #c7d2fe;border-radius:12px;padding:14px;margin-bottom:12px}
+.act-card{background:#EEF2FF;border:2px solid #c7d2fe;border-radius:12px;padding:12px;margin-bottom:10px;cursor:pointer}
+.act-card:active{border-color:#3949AB;background:#e0e7ff}
+.act-num{display:inline-block;background:#3949AB;color:#fff;width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;font-weight:800;margin-right:8px;font-size:.9rem}
+.act-title{font-weight:800;color:#1A237E}
+.act-desc{font-size:.85rem;color:#555;margin-top:4px}
+.ctrl-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
+.ctrl-btn{background:#3949AB;color:#fff;border:none;padding:10px 16px;border-radius:10px;font-weight:800;cursor:pointer;font-size:.9rem}
+.ctrl-btn.ok{background:#2E7D32}
+.result-msg{font-weight:800;text-align:center;margin-top:8px;min-height:24px}
+.input-row{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin:10px 0}
+.num-input{width:70px;padding:10px;border:2px solid #c7d2fe;border-radius:8px;font-size:1.1rem;text-align:center;font-weight:800}
+.option-btn{background:#fff;border:3px solid #c7d2fe;padding:12px;border-radius:10px;font-size:.95rem;font-weight:800;color:#3949AB;cursor:pointer;margin:4px;text-align:center}
+.option-btn.correct{background:#C8E6C9!important;border-color:#4CAF50!important}
+.option-btn.wrong{background:#FFCDD2!important;border-color:#F44336!important}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:400px;margin:0 auto}
+.meaning-box{background:#EEF2FF;padding:12px;border-radius:10px;font-weight:800;color:#1A237E;margin-bottom:12px;border:2px dashed #818cf8;text-align:center}
+.story-para{background:#EEF2FF;border-left:4px solid #3949AB;padding:12px;border-radius:8px;margin-bottom:10px;line-height:1.7}
+.story-para b{color:#1A237E}
+.hint-box{background:#FFF8E1;border:2px dashed #FFB300;border-radius:8px;padding:10px;margin-top:10px;font-size:.88rem;color:#7a5b00}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:99;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.show{display:flex}
+.reward-card{background:#fff;border-radius:18px;padding:22px;text-align:center;max-width:340px;width:100%;border:4px solid #FFD54F}
+.primary-action-btn{background:linear-gradient(135deg,#5C6BC0,#3949AB);color:#fff;border:none;padding:12px 22px;border-radius:12px;font-weight:800;cursor:pointer}
+@media print{.no-print{display:none!important}body{background:#fff}.unit-qp-paper{border:none}}
+.unit-qp-paper{background:#fff;border:2px solid #333;padding:16px;line-height:1.6}
+.unit-qp-paper .qp-lines{border-bottom:1px dotted #999;height:18px;margin:3px 0}
+@media(max-width:700px){
+.screen{padding:12px 12px}
+.home-hero h1{font-size:1.35rem}
+.btn-main{padding:16px 14px;font-size:1rem;min-height:56px}
+.header{padding:12px;border-radius:12px}
+.options-grid{max-width:100%}
+}
+@media(min-width:701px){
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cat-grid .btn-main{margin-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="app-container">
+
+<div class="topbar">
+  <div onclick="goHome()" style="cursor:pointer">
+    <h1>🔢 ഭിന്നസംഖ്യകൾ</h1>
+    <div class="sub">Class 7 Maths • Lesson 2</div>
+  </div>
+  <div class="stats">
+    <span>⭐ <span id="starsCount">0</span></span>
+    <span>🏆 <span id="scoreCount">0</span></span>
+  </div>
+  <div>
+    <button class="icon-btn" type="button" id="soundBtn" onclick="toggleSound()">🔊</button>
+    <button class="icon-btn" type="button" onclick="goHome()">🏠</button>
+  </div>
+</div>
+
+<div id="homeScreen" class="screen active">
+  <div class="home-hero">
+    <h1>🔢 ഭിന്നസംഖ്യകൾ</h1>
+    <p>Class 7 • Mathematics</p>
+  </div>
+
+  <div class="category-card" style="border-color:#bfdbfe">
+    <h3 class="category-title" style="color:#1e40af">📖 Learn</h3>
+    <div class="cat-grid">
+      <button type="button" class="btn-main b1" onclick="showRead()"><span class="emoji">📖</span> Text Book Lesson</button>
+      <button type="button" class="btn-main b9" onclick="showHelp()"><span class="emoji">ℹ️</span> Help</button>
+    </div>
+  </div>
+
+  <div class="category-card" style="border-color:#bbf7d0">
+    <h3 class="category-title" style="color:#166534">📐 Activities</h3>
+    <div class="cat-grid">
+      <button type="button" class="btn-main b2" onclick="showActsGrp1()"><span class="emoji">✖️</span> Multiplication & Parts (1–10)</button>
+      <button type="button" class="btn-main b4" onclick="showActsGrp2()"><span class="emoji">🍕</span> Fraction of a Fraction (11–20)</button>
+      <button type="button" class="btn-main b10" onclick="showActsGrp3()"><span class="emoji">📐</span> Area & Mixed Practice (21–30)</button>
+    </div>
+  </div>
+
+  <div class="category-card" style="border-color:#fde68a">
+    <h3 class="category-title" style="color:#92400e">📝 Exam corner</h3>
+    <div class="cat-grid">
+      <button type="button" class="btn-main b6" onclick="showQuiz()"><span class="emoji">❓</span> Quick Quiz</button>
+      <button type="button" class="btn-main b7" onclick="showModelQP()"><span class="emoji">📄</span> Model QP</button>
+      <button type="button" class="btn-main b8" onclick="showUnitQP()"><span class="emoji">🖨️</span> Unit QP</button>
+    </div>
+  </div>
+</div>
+
+<div id="readScreen" class="screen">
+  <div class="header"><button class="back-btn" onclick="goHome()">⬅</button><h1>📖 ഭിന്നസംഖ്യകൾ (Lesson)</h1></div>
+  <div class="content-card" id="readContent"></div>
+</div>
+
+<div id="actsGrp1Screen" class="screen">
+  <div class="header"><button class="back-btn" onclick="goHome()">⬅</button><h1>✖️ Multiplication & Parts</h1></div>
+  <div class="content-card" id="actsGrp1List"></div>
+</div>
+
+<div id="actsGrp2Screen" class="screen">
+  <div class="header"><button class="back-btn" onclick="goHome()">⬅</button><h1>🍕 Fraction of a Fraction</h1></div>
+  <div class="content-card" id="actsGrp2List"></div>
+</div>
+
+<div id="actsGrp3Screen" class="screen">
+  <div class="header"><button class="back-btn" onclick="goHome()">⬅</button><h1>📐 Area & Mixed Practice</h1></div>
+  <div class="content-card" id="actsGrp3List"></div>
+</div>
+
+<div id="activityScreen" class="screen">
+  <div class="header"><button class="back-btn" onclick="backFromAct()">⬅</button><h1 id="actTitle">Activity</h1></div>
+  <div class="content-card" id="actBox"></div>
+</div>
+
+<div id="quizScreen" class="screen">
+  <div class="header"><button class="back-btn" onclick="goHome()">⬅</button><h1>❓ Quick Quiz</h1></div>
+  <div class="content-card" id="quizContent"></div>
+</div>
+
+<div id="modelQPScreen" class="screen">
+  <div class="header"><button class="back-btn" onclick="goHome()">⬅</button><h1>📄 Model QP</h1></div>
+  <div class="content-card" id="modelQPContainer"></div>
+</div>
+
+<div id="unitQPScreen" class="screen">
+  <div class="header no-print"><button class="back-btn" onclick="goHome()">⬅</button><h1>🖨️ Unit Question Paper</h1></div>
+  <div class="content-card">
+    <div class="no-print" style="text-align:center;margin-bottom:12px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button type="button" class="ctrl-btn" onclick="window.print()">🖨️ Print</button>
+      <button type="button" class="ctrl-btn ok" onclick="downloadUnitQP()">⬇️ Download</button>
+    </div>
+    <div id="unitQPPaper" class="unit-qp-paper"></div>
+  </div>
+</div>
+
+<div id="helpScreen" class="screen">
+  <div class="header"><button class="back-btn" onclick="goHome()">⬅</button><h1>ℹ️ Help</h1></div>
+  <div class="content-card">
+    <ul style="line-height:1.9;padding-left:18px">
+      <li>ഭിന്നസംഖ്യകൾ (Fractions) lesson (Class 7) with 30 interactive activities[cite: 3].</li>
+      <li>Activities 1–10: മടങ്ങും ഗുണനവും (Multiplication & Multiples)[cite: 3].</li>
+      <li>Activities 11–20: ഭാഗത്തിന്റെ ഭാഗം (Fraction of a Fraction)[cite: 3].</li>
+      <li>Activities 21–30: ഭിന്നപ്പരപ്പും കൂടുതൽ കണക്കുകളും (Area & Mixed Practice)[cite: 3].</li>
+      <li>Tap any activity card to open an interactive tool.</li>
+      <li>Use Quick Quiz / Model QP / Unit QP to test yourself for exams.</li>
+    </ul>
+  </div>
+</div>
+
+<div id="rewardModal" class="modal-overlay">
+  <div class="reward-card">
+    <div style="font-size:2.5rem">🎉</div>
+    <div style="color:#3949AB;font-size:1.3rem;font-weight:800;margin:8px 0">അഭിനന്ദനങ്ങൾ! (Great job!)</div>
+    <div style="margin-bottom:12px">നിങ്ങൾ പ്രവർത്തനം പൂർത്തിയാക്കി!</div>
+    <button type="button" class="primary-action-btn" onclick="closeReward()">Continue →</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+var state={stars:0,score:0,sound:true,fromScreen:'actsGrp1Screen'};
+var ttsAudio=null,ttsQueue=[],voiceML=null;
+
+function pickVoice(){if(!('speechSynthesis' in window))return;var vs=speechSynthesis.getVoices();for(var i=0;i<vs.length;i++){if(vs[i].lang==='ml-IN'||vs[i].lang.indexOf('ml')===0){voiceML=vs[i];break;}}}
+if('speechSynthesis' in window){speechSynthesis.onvoiceschanged=pickVoice;pickVoice();}
+
+function speakText(t){
+  if(!state.sound||!t)return;
+  if(ttsAudio){try{ttsAudio.pause();ttsAudio.src='';}catch(e){}ttsAudio=null;}
+  ttsQueue=[];if('speechSynthesis' in window)try{speechSynthesis.cancel();}catch(e){}
+  var text=String(t).replace(/\s+/g,' ').trim();if(!text)return;
+  var parts=[],tmp=text.replace(/([.!?])\s+/g,'$1\n').split('\n');
+  for(var i=0;i<tmp.length;i++){var p=tmp[i].trim();if(!p)continue;if(p.length<=160){parts.push(p);continue;}var rem=p;while(rem.length>0){if(rem.length<=160){parts.push(rem.trim());break;}var cut=rem.lastIndexOf(' ',160);if(cut<40)cut=160;parts.push(rem.slice(0,cut).trim());rem=rem.slice(cut).trim();}}
+  if(!parts.length)parts=[text.slice(0,160)];ttsQueue=parts;playNextTts();
+}
+function playNextTts(){
+  if(!state.sound||!ttsQueue.length){ttsAudio=null;return;}
+  var chunk=ttsQueue.shift();if(!chunk){playNextTts();return;}
+  var url='https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=ml&q='+encodeURIComponent(chunk);
+  var audio=new Audio(url);ttsAudio=audio;var done=false;
+  function next(){if(done)return;done=true;setTimeout(playNextTts,80);}
+  audio.onended=next;
+  audio.onerror=function(){if('speechSynthesis' in window){try{var u=new SpeechSynthesisUtterance(chunk);u.lang='ml-IN';u.rate=0.92;if(voiceML)u.voice=voiceML;u.onend=next;u.onerror=next;speechSynthesis.speak(u);return;}catch(e){}}next();};
+  var pr=audio.play();if(pr&&pr.catch)pr.catch(function(){if('speechSynthesis' in window){try{var u=new SpeechSynthesisUtterance(chunk);u.lang='ml-IN';u.rate=0.92;u.onend=next;u.onerror=next;speechSynthesis.speak(u);}catch(e){next();}}else next();});
+}
+function toggleSound(){state.sound=!state.sound;var b=document.getElementById('soundBtn');if(b)b.innerHTML=state.sound?'🔊':'🔇';}
+function updateStats(){var s=document.getElementById('starsCount');var c=document.getElementById('scoreCount');if(s)s.innerHTML=state.stars;if(c)c.innerHTML=state.score;}
+function showScreen(id){var screens=document.querySelectorAll('.screen');for(var i=0;i<screens.length;i++)screens[i].className='screen';var el=document.getElementById(id);if(el)el.className='screen active';try{window.scrollTo(0,0);}catch(e){}}
+function goHome(){showScreen('homeScreen');}
+function closeReward(){document.getElementById('rewardModal').className='modal-overlay';}
+function showReward(){document.getElementById('rewardModal').className='modal-overlay show';state.stars++;state.score+=10;updateStats();}
+function backFromAct(){showScreen(state.fromScreen||'actsGrp1Screen');}
+
+function showRead(){
+  showScreen('readScreen');
+  var html='';
+  html+='<div class="story-para"><b>മടങ്ങും ഗുണനവും</b><br>അര കിലോഗ്രാം പായ്ക്കറ്റുകൾ നാലെണ്ണമായാൽ എത്രയാകും? അരയുടെ നാലു മടങ്ങ്, രണ്ട് കിലോഗ്രാം[cite: 3]. സംഖ്യകളിൽ ഇത് $\\frac{1}{2} \\times 4 = 2$ എന്ന് എഴുതാം[cite: 3].<br><br>ഒരു കുപ്പിയിൽ കാൽ ലിറ്റർ വെള്ളം കൊള്ളും[cite: 3]. മൂന്നു കുപ്പി നിറയ്ക്കാൻ കാൽ ലിറ്ററിന്റെ മൂന്നു മടങ്ങ്, മുക്കാൽ ലിറ്റർ ($\\frac{1}{4} \\times 3 = \\frac{3}{4}$) വേണം[cite: 3].</div>';
+  html+='<div class="story-para"><b>ഭാഗവും ഗുണനവും</b><br>4 ലിറ്റർ പാൽ 3 പേർക്ക് ഒരുപോലെ വീതിച്ചാൽ ഒരാൾക്ക് $4 \\div 3 = 1 \\frac{1}{3}$ ലിറ്റർ കിട്ടും[cite: 3].<br>6 മീറ്റർ നീളമുള്ള നാട രണ്ടു സമഭാഗങ്ങളാക്കിയാൽ, ഒരു കഷണം 3 മീറ്റർ ആകും[cite: 3]. അതായത് $6 \\times \\frac{1}{2} = 3$[cite: 3].</div>';
+  html+='<div class="story-para"><b>ഭാഗത്തിന്റെ ഭാഗം</b><br>ഒരു ചതുരത്തെ രണ്ടു സമഭാഗങ്ങളാക്കി, അതിലെ ഒരു ഭാഗത്തെ വീണ്ടും മൂന്നു സമഭാഗങ്ങളാക്കിയാൽ, കിട്ടുന്ന ചെറിയ ചതുരം വലിയ ചതുരത്തിന്റെ $\\frac{1}{2} \\times \\frac{1}{3} = \\frac{1}{6}$ ഭാഗമാണ്[cite: 3].<br>ഇതുപോലെ, $\\frac{2}{3} \\times \\frac{1}{5} = \\frac{2}{15}$[cite: 3].</div>';
+  html+='<div class="story-para"><b>ഭിന്നപ്പരപ്പ്</b><br>ദീർഘചതുരത്തിന്റെ പരപ്പളവ് കാണാൻ നീളവും വീതിയും തമ്മിൽ ഗുണിച്ചാൽ മതി[cite: 3]. അളവുകൾ ഭിന്നസംഖ്യകളായാലും ഈ രീതി ഉപയോഗിക്കാം[cite: 3].<br>ഉദാഹരണത്തിന്: $5 \\frac{1}{2}$ സെ.മീ നീളവും $3 \\frac{1}{3}$ സെ.മീ വീതിയുമുള്ള ചതുരത്തിന്റെ പരപ്പളവ് = $5 \\frac{1}{2} \\times 3 \\frac{1}{3} = \\frac{11}{2} \\times \\frac{10}{3} = \\frac{110}{6} = 18 \\frac{1}{3}$ ചതുരശ്ര സെ.മീ[cite: 3].</div>';
+  document.getElementById('readContent').innerHTML=html;
+}
+
+var GRP1_ACTS=[
+  {n:1,t:'ചരടിൻ്റെ നീളം',d:'1/4 മീറ്റർ നീളമുള്ള 5 ചരടുകൾ'},
+  {n:2,t:'മത്തങ്ങയുടെ ഭാരം',d:'1/4 കിലോഗ്രാം വീതം 4 കഷണങ്ങൾ'},
+  {n:3,t:'പാലിൻ്റെ അളവ്',d:'1/3 ലിറ്റർ വീതം 4 കപ്പുകൾ'},
+  {n:4,t:'നാടയുടെ നീളം',d:'3/4 മീറ്റർ വീതം 5 കഷണങ്ങൾ'},
+  {n:5,t:'നടക്കാൻ വേണ്ട സമയം',d:'1/4 മണിക്കൂർ വീതം 7 പ്രാവശ്യം'},
+  {n:6,t:'ഗുണനക്രിയ 1',d:'2/3 ന്റെ 10 മടങ്ങ് എത്ര?'},
+  {n:7,t:'ഇരുമ്പുകട്ടയുടെ ഭാരം',d:'1/4 കി.ഗ്രാം വീതമുള്ള 15 കട്ടകൾ'},
+  {n:8,t:'കമ്പിയുടെ നീളം',d:'2 മീറ്റർ കമ്പി 5 ഭാഗമാക്കിയാൽ 4 കഷണങ്ങളുടെ നീളം'},
+  {n:9,t:'കുപ്പിയിലെ പാൽ',d:'5 ലിറ്റർ പാൽ 6 കുപ്പിയിലാക്കി, 4 കുപ്പിയിലെ പാൽ'},
+  {n:10,t:'പാൽ വീതിക്കാം',d:'9 ലിറ്റർ പാൽ 4 പേർക്ക് വീതിച്ചാൽ'}
+];
+
+var GRP2_ACTS=[
+  {n:11,t:'ക്ലാസിലെ കുട്ടികൾ',d:'35 കുട്ടികളിൽ 3/5 ഭാഗം പെൺകുട്ടികൾ'},
+  {n:12,t:'അരി സഞ്ചി',d:'10 കി.ഗ്രാം 8 സഞ്ചിയിൽ, 3 സഞ്ചിയിലെ അരി'},
+  {n:13,t:'ഭാഗത്തിന്റെ ഭാഗം 1',d:'1/2 ന്റെ 1/3 ഭാഗം'},
+  {n:14,t:'ചരടിന്റെ നീളം',d:'1 മീറ്റർ ചരട് 5 ഭാഗമാക്കി, ഒന്നിന്റെ പകുതി'},
+  {n:15,t:'ചായയുണ്ടാക്കാൻ പാൽ',d:'1 ലിറ്റർ 2 കുപ്പിയിലാക്കി, ഒന്നിന്റെ കാൽ ഭാഗം'},
+  {n:16,t:'ഭാഗത്തിന്റെ ഭാഗം 2',d:'2/3 ന്റെ 4/5 ഭാഗം എത്ര?'},
+  {n:17,t:'കയറിന്റെ നീളം',d:'2 മീറ്റർ കയർ 5 ഭാഗമാക്കി, ഒന്നിന്റെ മുക്കാൽ ഭാഗം'},
+  {n:18,t:'കുപ്പിയിലെ വെള്ളം',d:'3 ലിറ്റർ 4 കുപ്പിയിൽ, ഒന്നിന്റെ 1/5 ഭാഗം'},
+  {n:19,t:'തണ്ണിമത്തങ്ങയുടെ ഭാരം',d:'4 കി.ഗ്രാം 5 കഷണമാക്കി, ഒന്നിന്റെ പകുതി'},
+  {n:20,t:'വരയുടെ നീളം',d:'12 സെ.മീ വര, 2/3 ന്റെ 1/4 ഭാഗം'}
+];
+
+var GRP3_ACTS=[
+  {n:21,t:'കുപ്പായം തുന്നാൻ',d:'ഒന്നര മീറ്റർ തുണി വീതം 5 കുപ്പായത്തിന്'},
+  {n:22,t:'വെണ്ടക്കയുടെ വില',d:'1 കിലോയ്ക്ക് 30 രൂപ, രണ്ടര കിലോയ്ക്ക്?'},
+  {n:23,t:'നടക്കുന്ന ദൂരം',d:'മണിക്കൂറിൽ 2 1/2 കി.മീ, 1 1/2 മണിക്കൂറിൽ?'},
+  {n:24,t:'സ്റ്റാമ്പുകളുടെ എണ്ണം',d:'36 സ്റ്റാമ്പിന്റെ 2 1/2 മടങ്ങ്'},
+  {n:25,t:'ജോലി സമയം',d:'ദിവസവും 4 1/2 മണിക്കൂർ, 6 ദിവസത്തിൽ?'},
+  {n:26,t:'ചതുരത്തിന്റെ പരപ്പളവ് 1',d:'നീളം 3 1/4, വീതി 4 1/2'},
+  {n:27,t:'ചതുരത്തിന്റെ പരപ്പളവ് 2',d:'നീളം 5 1/3, വീതി 6 3/4'},
+  {n:28,t:'സമചതുരത്തിന്റെ പരപ്പളവ്',d:'വശത്തിന്റെ നീളം 1 1/2 മീറ്റർ'},
+  {n:29,t:'ചുറ്റളവിൽ നിന്ന് പരപ്പളവ്',d:'ചുറ്റളവ് 14 മീറ്റർ ആയ സമചതുരം'},
+  {n:30,t:'മിശ്രഭിന്നം ഗുണിക്കാം',d:'5 1/3 ന്റെ 4 മടങ്ങ്'}
+];
+
+function renderActList(containerId, acts, from){
+  var h='';
+  for(var i=0;i<acts.length;i++){
+    var a=acts[i];
+    h+='<div class="act-card" onclick="openAct('+a.n+',\''+from+'\')"><span class="act-num">'+a.n+'</span><span class="act-title">'+a.t+'</span><div class="act-desc">'+a.d+'</div></div>';
+  }
+  document.getElementById(containerId).innerHTML=h;
+}
+function showActsGrp1(){state.fromScreen='actsGrp1Screen';showScreen('actsGrp1Screen');renderActList('actsGrp1List',GRP1_ACTS,'actsGrp1Screen');}
+function showActsGrp2(){state.fromScreen='actsGrp2Screen';showScreen('actsGrp2Screen');renderActList('actsGrp2List',GRP2_ACTS,'actsGrp2Screen');}
+function showActsGrp3(){state.fromScreen='actsGrp3Screen';showScreen('actsGrp3Screen');renderActList('actsGrp3List',GRP3_ACTS,'actsGrp3Screen');}
+
+function openAct(n, from){
+  state.fromScreen=from||'actsGrp1Screen';
+  showScreen('activityScreen');
+  document.getElementById('actTitle').innerHTML='Activity '+n;
+  var box=document.getElementById('actBox');
+  
+  if(n<=10) renderGrp1Act(n, box);
+  else if(n<=20) renderGrp2Act(n, box);
+  else renderGrp3Act(n, box);
+}
+
+function checkOpt(btn, ans){
+  if(btn.textContent===ans){btn.className='option-btn correct';document.getElementById('rf').style.color='#2E7D32';document.getElementById('rf').innerHTML='✅ ശരിയുത്തരം! (Correct!)';showReward();}
+  else{btn.className='option-btn wrong';document.getElementById('rf').style.color='#C62828';document.getElementById('rf').innerHTML='❌ വീണ്ടും ശ്രമിക്കുക (Try again)';}
+}
+function renderOptionActivity(box,question,opts,ans,hint){
+  var shuffled=opts.slice();
+  for(var i=shuffled.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=shuffled[i];shuffled[i]=shuffled[j];shuffled[j]=t;}
+  var html='<div class="meaning-box">'+question+'</div><div class="options-grid">';
+  for(var i=0;i<shuffled.length;i++)html+='<button type="button" class="option-btn" onclick="checkOpt(this,\''+ans+'\')">'+shuffled[i]+'</button>';
+  html+='</div><div id="rf" class="result-msg"></div>';
+  if(hint)html+='<div class="hint-box">💡 '+hint+'</div>';
+  box.innerHTML=html;
+}
+function renderInputActivity(box,question,ans,hint){
+  var html='<div class="meaning-box">'+question+'</div><div class="input-row">ഉത്തരം = <input type="number" class="num-input" id="actNumInput"> <button type="button" class="ctrl-btn" onclick="checkInputAct('+ans+')">✓ Check</button></div><div id="rf" class="result-msg"></div>';
+  if(hint)html+='<div class="hint-box">💡 '+hint+'</div>';
+  box.innerHTML=html;
+}
+function checkInputAct(ans){
+  var v=parseFloat(document.getElementById('actNumInput').value);
+  var r=document.getElementById('rf');
+  if(v===ans){r.style.color='#2E7D32';r.innerHTML='✅ ശരിയുത്തരം!';showReward();}
+  else{r.style.color='#C62828';r.innerHTML='❌ വീണ്ടും ശ്രമിക്കുക.';}
+}
+
+function renderGrp1Act(n, box){
+  var actData={
+    1:{q:'കാൽ മീറ്റർ (1/4 മീറ്റർ) നീളമുള്ള 5 ചരടുകൾ അറ്റത്തോടറ്റം ചേർത്തുവച്ചാൽ ആകെ നീളം എത്ര മീറ്ററാകും? (പേജ് 24)',opts:['1 1/4 മീറ്റർ','5 മീറ്റർ','3/4 മീറ്റർ','1 1/2 മീറ്റർ'],a:'1 1/4 മീറ്റർ',h:'1/4 ന്റെ 5 മടങ്ങ് = 5/4 = 1 1/4'},
+    2:{q:'കാൽ കിലോഗ്രാം (1/4 കി.ഗ്രാം) വീതം ഭാരമുള്ള 4 കഷണം മത്തങ്ങയുടെ ആകെ ഭാരം എത്ര? (പേജ് 24)',opts:['1 കിലോഗ്രാം','2 കിലോഗ്രാം','1/2 കിലോഗ്രാം','3/4 കിലോഗ്രാം'],a:'1 കിലോഗ്രാം',h:'1/4 x 4 = 4/4 = 1'},
+    3:{q:'ഒരു കപ്പിൽ 1/3 ലിറ്റർ പാൽ നിറയ്ക്കാം. 4 കപ്പിൽ ആകെ എത്ര ലിറ്റർ നിറയ്ക്കാം? (പേജ് 24)',opts:['1 1/3 ലിറ്റർ','4 ലിറ്റർ','3/4 ലിറ്റർ','1 1/2 ലിറ്റർ'],a:'1 1/3 ലിറ്റർ',h:'1/3 x 4 = 4/3 = 1 1/3'},
+    4:{q:'മുക്കാൽ മീറ്റർ (3/4 മീറ്റർ) വീതം നീളമുള്ള 5 കഷണം നാടയുടെ ആകെ നീളം എത്ര മീറ്ററാണ്? (പേജ് 24)',opts:['3 3/4 മീറ്റർ','5 3/4 മീറ്റർ','15 മീറ്റർ','2 1/4 മീറ്റർ'],a:'3 3/4 മീറ്റർ',h:'3/4 x 5 = 15/4 = 3 3/4'},
+    5:{q:'ഒരു കളിസ്ഥലത്തിന് ചുറ്റും നടക്കാൻ 1/4 മണിക്കൂർ വേണം. 7 പ്രാവശ്യം നടക്കാൻ എത്ര സമയം വേണം? (പേജ് 24)',opts:['1 3/4 മണിക്കൂർ','7 മണിക്കൂർ','2 മണിക്കൂർ','3/4 മണിക്കൂർ'],a:'1 3/4 മണിക്കൂർ',h:'1/4 x 7 = 7/4 = 1 3/4'},
+    6:{q:'2/3 ന്റെ 10 മടങ്ങ് എത്രയാണ്? (പേജ് 25)',opts:['6 2/3','20','10 2/3','6 1/3'],a:'6 2/3',h:'(2 x 10)/3 = 20/3 = 18/3 + 2/3 = 6 2/3'},
+    7:{q:'ഒരു ഇരുമ്പുകട്ടയുടെ ഭാരം 1/4 കി.ഗ്രാം. ഇത്തരം 15 കട്ടകളുടെ ഭാരം എത്ര? (പേജ് 25)',opts:['3 3/4 കി.ഗ്രാം','15 കി.ഗ്രാം','4 1/4 കി.ഗ്രാം','3 1/2 കി.ഗ്രാം'],a:'3 3/4 കി.ഗ്രാം',h:'1/4 x 15 = 15/4 = 3 3/4'},
+    8:{q:'2 മീറ്റർ നീളമുള്ള കമ്പി 5 ഭാഗങ്ങളാക്കി. അതിലെ 4 കഷണങ്ങളുടെ ആകെ നീളം എത്ര മീറ്റർ? (പേജ് 26)',opts:['1 3/5 മീറ്റർ','8 മീറ്റർ','4/5 മീറ്റർ','2 4/5 മീറ്റർ'],a:'1 3/5 മീറ്റർ',h:'ഒരു കഷണം 2/5 മീറ്റർ. 4 കഷണം = 2/5 x 4 = 8/5 = 1 3/5'},
+    9:{q:'5 ലിറ്റർ പാൽ 6 കുപ്പികളിൽ നിറച്ചു. 4 കുപ്പികളിൽ ആകെ എത്ര ലിറ്റർ പാലുണ്ട്? (പേജ് 26)',opts:['3 1/3 ലിറ്റർ','20 ലിറ്റർ','4 1/6 ലിറ്റർ','2 1/3 ലിറ്റർ'],a:'3 1/3 ലിറ്റർ',h:'ഒരു കുപ്പിയിൽ 5/6 ലിറ്റർ. 4 കുപ്പി = 5/6 x 4 = 20/6 = 3 2/6 = 3 1/3'},
+    10:{q:'9 ലിറ്റർ പാൽ 4 കുട്ടികൾക്ക് ഒരുപോലെ വീതിച്ചാൽ ഒരു കുട്ടിക്ക് എത്ര ലിറ്റർ കിട്ടും? (പേജ് 28)',opts:['2 1/4 ലിറ്റർ','9 ലിറ്റർ','4 1/9 ലിറ്റർ','2 3/4 ലിറ്റർ'],a:'2 1/4 ലിറ്റർ',h:'9 / 4 = 9/4 = 2 1/4'}
+  };
+  renderOptionActivity(box,actData[n].q,actData[n].opts,actData[n].a,actData[n].h);
+}
+
+function renderGrp2Act(n, box){
+  if(n===11){
+    renderInputActivity(box,'ഒരു ക്ലാസിൽ 35 കുട്ടികളുണ്ട്. ഇതിൽ 3/5 ഭാഗം പെൺകുട്ടികളാണ്. ക്ലാസിൽ എത്ര പെൺകുട്ടികളുണ്ട്? (പേജ് 29)',21,'35 x 3/5 = (35/5) x 3 = 7 x 3');
+    return;
+  }
+  var actData={
+    12:{q:'10 കി.ഗ്രാം അരി 8 സഞ്ചികളിൽ ഒരുപോലെ നിറച്ചു. 3 സഞ്ചിയിലെ അരി ഒന്നിച്ചെടുത്താൽ എത്ര കി.ഗ്രാം ആയി? (പേജ് 29)',opts:['3 3/4 കി.ഗ്രാം','30 കി.ഗ്രാം','4 1/4 കി.ഗ്രാം','1 1/4 കി.ഗ്രാം'],a:'3 3/4 കി.ഗ്രാം',h:'(10/8) x 3 = 30/8 = 15/4 = 3 3/4'},
+    13:{q:'1/2 ന്റെ 1/3 ഭാഗം എത്രയാണ്? (പേജ് 30)',opts:['1/6','1/5','2/3','3/2'],a:'1/6',h:'(1 x 1)/(2 x 3) = 1/6'},
+    14:{q:'1 മീറ്റർ നീളമുള്ള ചരട് 5 സമഭാഗങ്ങളാക്കി. അതിലൊരു കഷണത്തിന്റെ പകുതിയുടെ നീളം എത്ര? (പേജ് 32)',opts:['1/10 മീറ്റർ','1/5 മീറ്റർ','1/2 മീറ്റർ','2/5 മീറ്റർ'],a:'1/10 മീറ്റർ',h:'1/5 ന്റെ 1/2 ഭാഗം = 1/5 x 1/2 = 1/10'},
+    15:{q:'1 ലിറ്റർ പാൽ 2 കുപ്പികളിൽ നിറച്ചു. അതിലൊരു കുപ്പിയുടെ കാൽ ഭാഗമെടുത്തു. എത്ര ലിറ്റർ പാലെടുത്തു? (പേജ് 32)',opts:['1/8 ലിറ്റർ','1/4 ലിറ്റർ','1/6 ലിറ്റർ','3/8 ലിറ്റർ'],a:'1/8 ലിറ്റർ',h:'1/2 ന്റെ 1/4 ഭാഗം = 1/2 x 1/4 = 1/8'},
+    16:{q:'2/3 ന്റെ 4/5 ഭാഗം എത്രയാണ്? (പേജ് 33)',opts:['8/15','6/8','2/5','4/15'],a:'8/15',h:'(2 x 4)/(3 x 5) = 8/15'},
+    17:{q:'2 മീറ്റർ കയർ 5 കഷണങ്ങളാക്കി. ഇതിലൊരു കഷണത്തിന്റെ മുക്കാൽ (3/4) ഭാഗത്തിന്റെ നീളം എത്ര മീറ്റർ? (പേജ് 34)',opts:['3/10 മീറ്റർ','6/5 മീറ്റർ','3/4 മീറ്റർ','2/5 മീറ്റർ'],a:'3/10 മീറ്റർ',h:'(2/5) ന്റെ 3/4 ഭാഗം = 2/5 x 3/4 = 6/20 = 3/10'},
+    18:{q:'3 ലിറ്റർ വെള്ളം 4 കുപ്പികളിൽ നിറച്ചു. ഒരു കുപ്പിയിലെ വെള്ളത്തിന്റെ 1/5 ഭാഗം ഒരു കപ്പിലാക്കിയാൽ, കപ്പിൽ എത്ര ലിറ്റർ വെള്ളമുണ്ട്? (പേജ് 34)',opts:['3/20 ലിറ്റർ','3/4 ലിറ്റർ','1/20 ലിറ്റർ','4/15 ലിറ്റർ'],a:'3/20 ലിറ്റർ',h:'(3/4) ന്റെ 1/5 ഭാഗം = 3/4 x 1/5 = 3/20'},
+    19:{q:'4 കി.ഗ്രാം തണ്ണിമത്തങ്ങ 5 കഷണമാക്കി. ഒരു കഷണത്തിനെ വീണ്ടും പകുതിയാക്കിയാൽ അതിന്റെ ഭാരം എത്ര കി.ഗ്രാം? (പേജ് 34)',opts:['2/5 കി.ഗ്രാം','4/5 കി.ഗ്രാം','1/10 കി.ഗ്രാം','2/10 കി.ഗ്രാം'],a:'2/5 കി.ഗ്രാം',h:'(4/5) ന്റെ 1/2 ഭാഗം = 4/5 x 1/2 = 4/10 = 2/5'},
+    20:{q:'AB യുടെ നീളം 12 സെ.മീ. AC എന്നത് AB യുടെ 2/3 ഭാഗം. AD എന്നത് AC യുടെ 1/4 ഭാഗം. AD യുടെ നീളം AB യുടെ എത്ര ഭാഗമാണ്? (പേജ് 34)',opts:['1/6 ഭാഗം','2/12 ഭാഗം (അതായത് 1/6)','1/4 ഭാഗം','1/3 ഭാഗം'],a:'2/12 ഭാഗം (അതായത് 1/6)',h:'2/3 ന്റെ 1/4 ഭാഗം = (2x1)/(3x4) = 2/12 = 1/6'}
+  };
+  renderOptionActivity(box,actData[n].q,actData[n].opts,actData[n].a,actData[n].h);
+}
+
+function renderGrp3Act(n, box){
+  if(n===22){
+    renderInputActivity(box,'1 കിലോ വെണ്ടക്കയുടെ വില 30 രൂപ. രണ്ടര (2 1/2) കിലോയ്ക്ക് എത്ര രൂപയാകും? (പേജ് 37)',75,'30 x 2.5 = 75');
+    return;
+  }
+  if(n===24){
+    renderInputActivity(box,'റോണിയുടെ കൈയിൽ 36 സ്റ്റാമ്പുണ്ട്. അതിന്റെ 2 1/2 മടങ്ങാണ് സഹീറയുടെ കൈയിലുള്ളത്. സഹീറയുടെ കൈയിൽ എത്ര സ്റ്റാമ്പുണ്ട്? (പേജ് 38)',90,'36 x 2 1/2 = 36 x 5/2 = 18 x 5 = 90');
+    return;
+  }
+  if(n===25){
+    renderInputActivity(box,'ജോജി ദിവസവും 4 1/2 മണിക്കൂർ ജോലി ചെയ്യും. 6 ദിവസം കൊണ്ട് എത്ര മണിക്കൂർ ജോലി ചെയ്യും? (പേജ് 38)',27,'4.5 x 6 = 27');
+    return;
+  }
+  var actData={
+    21:{q:'ഒരു കുപ്പായം തുന്നാൻ 1 1/2 മീറ്റർ തുണി വേണം. 5 കുപ്പായത്തിന് എത്ര തുണി വേണം? (പേജ് 37)',opts:['7 1/2 മീറ്റർ','6 1/2 മീറ്റർ','5 1/2 മീറ്റർ','10 മീറ്റർ'],a:'7 1/2 മീറ്റർ',h:'1 1/2 x 5 = 3/2 x 5 = 15/2 = 7 1/2'},
+    23:{q:'ഒരാൾ 1 മണിക്കൂറിൽ 2 1/2 കി.മീ നടക്കും. ഈ വേഗത്തിൽ 1 1/2 മണിക്കൂർ കൊണ്ട് എത്ര ദൂരം നടക്കും? (പേജ് 37)',opts:['3 3/4 കി.മീ','4 കി.മീ','3 1/2 കി.മീ','2 3/4 കി.മീ'],a:'3 3/4 കി.മീ',h:'5/2 x 3/2 = 15/4 = 3 3/4'},
+    26:{q:'3 1/4 സെ.മീ നീളവും 4 1/2 സെ.മീ വീതിയുമുള്ള ചതുരത്തിന്റെ പരപ്പളവ് എത്ര? (പേജ് 42)',opts:['14 5/8 ച.സെ.മീ','12 3/8 ച.സെ.മീ','15 1/4 ച.സെ.മീ','14 1/8 ച.സെ.മീ'],a:'14 5/8 ച.സെ.മീ',h:'13/4 x 9/2 = 117/8 = 14 5/8'},
+    27:{q:'5 1/3 മീറ്റർ നീളവും 6 3/4 മീറ്റർ വീതിയുമുള്ള ചതുരത്തിന്റെ പരപ്പളവ് എത്ര? (പേജ് 42)',opts:['36 ച.മീ','30 1/3 ച.മീ','35 1/4 ച.മീ','32 ച.മീ'],a:'36 ച.മീ',h:'16/3 x 27/4 = (16x27)/(3x4) = 4 x 9 = 36'},
+    28:{q:'വശത്തിന്റെ നീളം 1 1/2 മീറ്റർ ആയ സമചതുരത്തിന്റെ പരപ്പളവ് എത്ര? (പേജ് 42)',opts:['2 1/4 ച.മീ','3 ച.മീ','2 1/2 ച.മീ','1 3/4 ച.മീ'],a:'2 1/4 ച.മീ',h:'1.5 x 1.5 = 2.25 = 2 1/4'},
+    29:{q:'ഒരു സമചതുരത്തിന്റെ ചുറ്റളവ് 14 മീറ്റർ. അതിന്റെ പരപ്പളവ് എത്ര? (പേജ് 42)',opts:['12 1/4 ച.മീ','14 ച.മീ','16 1/4 ച.മീ','10 1/2 ച.മീ'],a:'12 1/4 ച.മീ',h:'വശം = 14/4 = 7/2. പരപ്പളവ് = 7/2 x 7/2 = 49/4 = 12 1/4'},
+    30:{q:'5 1/3 ന്റെ 4 മടങ്ങ് എത്രയാണ്? (പേജ് 38)',opts:['21 1/3','20 1/3','21 2/3','20 4/3'],a:'21 1/3',h:'16/3 x 4 = 64/3 = 21 1/3'}
+  };
+  renderOptionActivity(box,actData[n].q,actData[n].opts,actData[n].a,actData[n].h);
+}
+
+function showQuiz(){
+  showScreen('quizScreen');
+  var qs=[
+    {q:'അര കിലോഗ്രാം പായ്ക്കറ്റുകൾ 4 എണ്ണമായാൽ ആകെ ഭാരം എത്ര?',o:['2 കി.ഗ്രാം','1 കി.ഗ്രാം','4 കി.ഗ്രാം','1 1/2 കി.ഗ്രാം'],a:0},
+    {q:'4 ലിറ്റർ പാൽ 3 പേർക്ക് വീതിച്ചാൽ ഒരാൾക്ക് എത്ര കിട്ടും?',o:['1 1/3 ലിറ്റർ','1 1/4 ലിറ്റർ','3/4 ലിറ്റർ','4/3 ലിറ്റർ (അഥവാ 1 1/3)'],a:3},
+    {q:'1/2 ന്റെ 1/3 ഭാഗം എത്രയാണ്?',o:['1/6','1/5','5/6','3/2'],a:0},
+    {q:'ചതുരത്തിന്റെ പരപ്പളവ് കാണാൻ എന്ത് ചെയ്യണം?',o:['നീളവും വീതിയും ഗുണിക്കുക','നീളവും വീതിയും കൂട്ടുക','ചുറ്റളവ് പകുതിയാക്കുക','നീളം മാത്രം അളക്കുക'],a:0},
+    {q:'2 1/2 ന്റെ 2 മടങ്ങ് എത്ര?',o:['5','4 1/2','4','6'],a:0},
+    {q:'1 മീറ്റർ ചരട് 4 ഭാഗമാക്കി, അതിലൊന്നിന്റെ പകുതി എടുത്താൽ എത്ര ഭാഗം കിട്ടും?',o:['1/8 മീറ്റർ','1/4 മീറ്റർ','1/2 മീറ്റർ','1/6 മീറ്റർ'],a:0},
+    {q:'3/4 ന്റെ 4 മടങ്ങ് എത്രയാണ്?',o:['3','4','3/4','1 3/4'],a:0},
+    {q:'വശം 1/2 മീറ്റർ ആയ സമചതുരത്തിന്റെ പരപ്പളവ്?',o:['1/4 ച.മീ','1 ച.മീ','1/2 ച.മീ','2 ച.മീ'],a:0}
+  ];
+  window._qa=[];window._qp={};
+  var h='';
+  for(var i=0;i<qs.length;i++){
+    window._qa.push(qs[i].a);
+    h+='<div style="background:#fff;border-left:4px solid #3949AB;padding:10px;margin-bottom:8px;border-radius:8px"><b>'+(i+1)+'. '+qs[i].q+'</b><div class="options-grid" style="margin-top:6px">';
+    for(var j=0;j<qs[i].o.length;j++)h+='<div class="option-btn" style="font-size:.85rem" data-q="'+i+'" data-o="'+j+'" onclick="pq(this,'+i+','+j+')">'+qs[i].o[j]+'</div>';
+    h+='</div></div>';
+  }
+  h+='<div style="text-align:center"><button type="button" class="ctrl-btn" onclick="sq()">✓ Submit Quiz</button></div><div id="qs" class="result-msg"></div>';
+  document.getElementById('quizContent').innerHTML=h;
+}
+function pq(el,qi,oi){var opts=document.querySelectorAll('[data-q="'+qi+'"]');for(var i=0;i<opts.length;i++)opts[i].style.borderColor='#9FA8DA';el.style.borderColor='#3949AB';el.style.background='#E8EAF6';window._qp[qi]=oi;}
+function sq(){var sc=0;for(var i=0;i<window._qa.length;i++)if(window._qp[i]===window._qa[i])sc++;state.score+=sc*5;if(sc>=5)state.stars++;updateStats();document.getElementById('qs').innerHTML='Score: '+sc+' / '+window._qa.length;document.getElementById('qs').style.color=sc>=5?'#2E7D32':'#C62828';}
+
+/* ================= MODEL QP ================= */
+function showModelQP(){
+  showScreen('modelQPScreen');
+  var h='<div style="text-align:center;margin-bottom:10px"><h2 style="color:#1A237E">Model Question Paper</h2><div>ക്ലാസ് 7 ഗണിതം • ഭിന്നസംഖ്യകൾ (Fractions)</div><div style="font-size:.85rem">Marks: 30 | Time: 45 min</div></div>';
+  h+='<div style="background:#E8EAF6;border:2px solid #9FA8DA;border-radius:10px;padding:10px;margin-bottom:8px"><b>I. ശരിയായ ഉത്തരം തിരഞ്ഞെടുക്കുക (6×1=6)</b><br>';
+  h+='1. കാൽ കിലോഗ്രാമിന്റെ 4 മടങ്ങ് എത്ര? (a) 1 കി.ഗ്രാം (b) 2 കി.ഗ്രാം (c) 1/2 കി.ഗ്രാം<br>';
+  h+='2. 1/2 ന്റെ 1/3 ഭാഗം എത്ര? (a) 1/6 (b) 1/5 (c) 2/3<br>';
+  h+='3. 3 ലിറ്റർ പാൽ 4 പേർക്ക് വീതിച്ചാൽ ഒരാൾക്ക്? (a) 3/4 ലിറ്റർ (b) 4/3 ലിറ്റർ (c) 1/4 ലിറ്റർ<br>';
+  h+='4. ഒരു സമചതുരത്തിന്റെ വശം 1/2 മീറ്റർ ആയാൽ പരപ്പളവ്? (a) 1/4 ച.മീ (b) 1 ച.മീ (c) 1/2 ച.മീ<br>';
+  h+='5. 2 1/2 ന്റെ 2 മടങ്ങ് എത്ര? (a) 5 (b) 4 1/2 (c) 4<br>';
+  h+='6. 5 ന്റെ 1/4 ഭാഗം എത്ര? (a) 1 1/4 (b) 5/4 (c) രണ്ടും ശരിയാണ്</div>';
+  h+='<div style="background:#E8EAF6;border:2px solid #9FA8DA;border-radius:10px;padding:10px;margin-bottom:8px"><b>II. ശരിയോ തെറ്റോ (4×1=4)</b><br>7. ഒരു ഭിന്നസംഖ്യയെ പൂർണ്ണസംഖ്യ കൊണ്ട് ഗുണിക്കാൻ അംശത്തെ മാത്രം ഗുണിച്ചാൽ മതി. ( )<br>8. ഭാഗത്തിന്റെ ഭാഗം കാണാൻ ഭിന്നസംഖ്യകൾ തമ്മിൽ കൂട്ടണം. ( )<br>9. 3 1/2 എന്നത് 7/2 ന് തുല്യമാണ്. ( )<br>10. ചതുരത്തിന്റെ അളവുകൾ ഭിന്നസംഖ്യകളായാലും പരപ്പളവ് കാണാൻ ഗുണനക്രിയ മതി. ( )</div>';
+  h+='<div style="background:#E8EAF6;border:2px solid #9FA8DA;border-radius:10px;padding:10px;margin-bottom:8px"><b>III. ലഘു ചോദ്യങ്ങൾ (4×2=8)</b><br>11. ഒരു കിലോ വെണ്ടക്കയ്ക്ക് 30 രൂപ. രണ്ടര കിലോയ്ക്ക് എത്ര രൂപ?<br>12. 10 കി.ഗ്രാം അരി 8 സഞ്ചികളിൽ സമമായി നിറച്ചു. ഒരു സഞ്ചിയിൽ എത്ര കിലോ അരിയുണ്ട്?<br>13. 2/3 ന്റെ 4/5 ഭാഗം എത്രയാണെന്ന് കണക്കാക്കുക.<br>14. 5 1/3 ന്റെ 4 മടങ്ങ് കണ്ടെത്തുക.</div>';
+  h+='<div style="background:#E8EAF6;border:2px solid #9FA8DA;border-radius:10px;padding:10px"><b>IV. ഉപന്യാസ മാതൃകയിലുള്ള ചോദ്യങ്ങൾ (2×6=12)</b><br>15. 5 1/3 മീറ്റർ നീളവും 6 3/4 മീറ്റർ വീതിയുമുള്ള ഒരു ദീർഘചതുരത്തിന്റെ പരപ്പളവ് കണക്കാക്കുക.<br>16. ഒരു കുപ്പായം തുന്നാൻ 1 1/2 മീറ്റർ തുണി വേണം. 10 മീറ്റർ തുണിയിൽ നിന്ന് ഇത്തരം എത്ര കുപ്പായങ്ങൾ തുന്നാം? ബാക്കി തുണി എത്ര?</div>';
+  document.getElementById('modelQPContainer').innerHTML=h;
+}
+
+/* ================= UNIT QP ================= */
+function showUnitQP(){
+  showScreen('unitQPScreen');
+  var h='<div style="text-align:center;font-weight:bold;font-size:1.1rem">ക്ലാസ് VII – ഗണിതം</div>';
+  h+='<div style="text-align:center;font-size:1.15rem;font-weight:bold;text-decoration:underline;margin:6px 0">Unit Question Paper (യൂണിറ്റ് ചോദ്യപ്പേപ്പർ)</div>';
+  h+='<div style="text-align:center;font-weight:bold">പാഠം 2 – ഭിന്നസംഖ്യകൾ (Fractions)</div>';
+  h+='<div style="display:flex;justify-content:space-between;font-size:.88rem;margin:8px 0;border-bottom:2px solid #333;padding-bottom:6px"><span>Time: 1 hour</span><span>Max Marks: 40</span></div>';
+  h+='<p style="font-weight:bold">Section A – Objective (15 marks)</p>';
+  h+='<p><b>1.</b> ശരിയായ ഉത്തരം തിരഞ്ഞെടുക്കുക. (5×1=5)</p>';
+  h+='<p style="margin-left:10px">a) കാൽ കിലോഗ്രാമിന്റെ 5 മടങ്ങ് എത്ര? (i) 1 കി.ഗ്രാം (ii) 1 1/4 കി.ഗ്രാം (iii) 1/2 കി.ഗ്രാം</p>';
+  h+='<p style="margin-left:10px">b) 1/3 ന്റെ 1/5 ഭാഗം (i) 1/8 (ii) 1/15 (iii) 2/15</p>';
+  h+='<p style="margin-left:10px">c) 6 മീറ്റർ നാട 3 സമഭാഗമാക്കിയാൽ ഒരു കഷണത്തിന്റെ നീളം (i) 2 മീറ്റർ (ii) 3 മീറ്റർ (iii) 1/3 മീറ്റർ</p>';
+  h+='<p style="margin-left:10px">d) 2 1/2 എന്നത് ഏത് ഭിന്നത്തിന് തുല്യം? (i) 4/2 (ii) 5/2 (iii) 3/2</p>';
+  h+='<p style="margin-left:10px">e) ചതുരത്തിന്റെ പരപ്പളവ് കാണാനുള്ള സൂത്രവാക്യം (i) നീളം x വീതി (ii) നീളം + വീതി (iii) 2 x (നീളം+വീതി)</p>';
+  h+='<p><b>2.</b> ശരിയോ തെറ്റോ. (5×1=5)</p>';
+  h+='<p style="margin-left:10px">a) ഒരു സംഖ്യയുടെ മടങ്ങ് കാണാൻ ഗുണിക്കണം. ( )</p>';
+  h+='<p style="margin-left:10px">b) 3/4 ന്റെ 4 മടങ്ങ് 3 ആണ്. ( )</p>';
+  h+='<p style="margin-left:10px">c) ഭാഗത്തിന്റെ ഭാഗം കാണാൻ രണ്ടു ഭിന്നങ്ങളും ഗുണിക്കണം. ( )</p>';
+  h+='<p style="margin-left:10px">d) വശം 1/2 ആയ സമചതുരത്തിന്റെ പരപ്പളവ് 1/2 തന്നെ. ( )</p>';
+  h+='<p style="margin-left:10px">e) 5 ലിറ്റർ പാൽ 6 കുപ്പികളിലാക്കിയാൽ ഒരു കുപ്പിയിൽ 6/5 ലിറ്ററുണ്ടാകും. ( )</p>';
+  h+='<p><b>3.</b> വിട്ടുപോയ ഭാഗം പൂരിപ്പിക്കുക. (5×1=5)</p>';
+  h+='<p style="margin-left:10px">a) 1/2 ന്റെ 1/4 ഭാഗം = ________.</p>';
+  h+='<p style="margin-left:10px">b) 30 രൂപയുടെ 2 1/2 മടങ്ങ് = ________ രൂപ.</p>';
+  h+='<p style="margin-left:10px">c) 2/3 ന്റെ 4/5 ഭാഗം = ________.</p>';
+  h+='<p style="margin-left:10px">d) 9 ലിറ്റർ പാൽ 4 പേർക്ക് വീതിച്ചാൽ ഒരാൾക്ക് ________ ലിറ്റർ കിട്ടും.</p>';
+  h+='<p style="margin-left:10px">e) 4 1/2 നെ വിഷമഭിന്നമായി (improper fraction) എഴുതിയാൽ ________.</p>';
+  h+='<p style="font-weight:bold;margin-top:10px">Section B – Short Answer (10 marks)</p>';
+  h+='<p><b>4.</b> ഒരു കളിസ്ഥലത്തിന് ചുറ്റും നടക്കാൻ 1/4 മണിക്കൂർ വേണം. 7 പ്രാവശ്യം നടക്കാൻ എത്ര സമയം വേണം? (2)</p><div class="qp-lines"></div><div class="qp-lines"></div>';
+  h+='<p><b>5.</b> ഒരു ക്ലാസിൽ 35 കുട്ടികളുണ്ട്. അതിൽ 3/5 ഭാഗം പെൺകുട്ടികളാണ്. എത്ര പെൺകുട്ടികളുണ്ട്? (2)</p><div class="qp-lines"></div><div class="qp-lines"></div>';
+  h+='<p><b>6.</b> 2 മീറ്റർ നീളമുള്ള കമ്പി 5 സമഭാഗങ്ങളാക്കി. അതിൽ 4 കഷണങ്ങളുടെ ആകെ നീളം എന്ത്? (3)</p><div class="qp-lines"></div><div class="qp-lines"></div>';
+  h+='<p><b>7.</b> 3 1/4 സെ.മീ നീളവും 4 1/2 സെ.മീ വീതിയുമുള്ള ചതുരത്തിന്റെ പരപ്പളവ് കണ്ടെത്തുക. (3)</p><div class="qp-lines"></div><div class="qp-lines"></div>';
+  h+='<p style="font-weight:bold;margin-top:10px">Section C – Long Answer (15 marks)</p>';
+  h+='<p><b>8.</b> 4 കി.ഗ്രാം തണ്ണിമത്തങ്ങ 5 കഷണമാക്കി. അതിൽ ഒരു കഷണത്തിനെ വീണ്ടും പകുതിയാക്കി. ഈ ചെറിയ കഷണത്തിന്റെ ഭാരം എത്ര കിലോഗ്രാം? ഇത് എത്ര ഗ്രാമാണ്? (5)</p><div class="qp-lines"></div><div class="qp-lines"></div><div class="qp-lines"></div>';
+  h+='<p><b>9.</b> ഒരു കുപ്പായം തുന്നാൻ 1 1/2 മീറ്റർ തുണി വേണം. ഇത്തരം 5 കുപ്പായത്തിന് എത്ര തുണി വേണം? ഈ തുണിയുടെ വില ഒരു മീറ്ററിന് 100 രൂപയാണെങ്കിൽ ആകെ എത്ര രൂപയാകും? (5)</p><div class="qp-lines"></div><div class="qp-lines"></div><div class="qp-lines"></div>';
+  h+='<p><b>10.</b> ഒരു സമചതുരത്തിന്റെ ചുറ്റളവ് 14 മീറ്ററാണ്. അതിന്റെ വശത്തിന്റെ നീളം ഭിന്നസംഖ്യയായി കണ്ടുപിടിച്ച്, സമചതുരത്തിന്റെ പരപ്പളവ് കണക്കാക്കുക. (5)</p><div class="qp-lines"></div><div class="qp-lines"></div><div class="qp-lines"></div>';
+  h+='<div style="text-align:center;margin-top:14px;border-top:1px solid #999;padding-top:6px">***** All the best *****</div>';
+  document.getElementById('unitQPPaper').innerHTML=h;
+}
+function downloadUnitQP(){
+  showUnitQP();
+  var paper=document.getElementById('unitQPPaper');
+  if(!paper)return;
+  var text=paper.innerText||paper.textContent;
+  var blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Class7_Maths_Fractions_Unit_QP.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+
+updateStats();
+</script>
+</body>
+</html>
